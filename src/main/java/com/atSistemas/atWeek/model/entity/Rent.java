@@ -4,12 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
-public class Rate {
+public class Rent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,10 +16,12 @@ public class Rate {
     private LocalDate start_at;
     private LocalDate end_at;
 
-    @Column(name="Price", columnDefinition="Decimal(10,2) default '0.00'")
+    @Column(columnDefinition="Decimal(10,2) default '0.00'")
     private Double price;
 
+    @ManyToOne
+    private Car car;
 
-    @ManyToMany
-    private List<Car> cars = new ArrayList<>();
+    @ManyToOne
+    private Client client;
 }
