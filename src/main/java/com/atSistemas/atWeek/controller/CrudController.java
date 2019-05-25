@@ -1,21 +1,23 @@
 package com.atSistemas.atWeek.controller;
 
 
-import org.springframework.data.repository.CrudRepository;
+import com.atSistemas.atWeek.service.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 public class CrudController<T, ID> {
 
-    private CrudRepository<T, ID> repository;
+    @Autowired
+    private CrudService<T, ID> service;
 
-    public CrudController(CrudRepository<T, ID> repository){
-        this.repository = repository;
+    public CrudController(CrudService<T, ID> service){
+        this.service = service;
     }
 
     @PostMapping
     public T create(@RequestBody T t){
-        return repository.save(t);
+        return service.create(t);
     }
 
 }
