@@ -1,5 +1,6 @@
 package com.atSistemas.atWeek.model.entity;
 
+import com.atSistemas.atWeek.model.entity.Car;
 import lombok.Data;
 
 import javax.persistence.*;
