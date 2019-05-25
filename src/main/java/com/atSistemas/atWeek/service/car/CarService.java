@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CarService extends CrudService<Car, Integer> {
+
 }
