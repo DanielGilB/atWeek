@@ -7,10 +7,12 @@ import com.atSistemas.atWeek.model.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/client")
-public class ClientController extends CrudController {
-
+public class ClientController /* extends CrudController */ {
+/*
     @Autowired
     private final ClientRepository repository;
 
@@ -24,7 +26,12 @@ public class ClientController extends CrudController {
                 .orElseThrow(() -> new NotFoundException("Not found entity with value "+id));
     }
 
-    //TODO::findAll con paginado
+    @GetMapping
+    public List<Client> findAll(){
+        return repository.findAll();
+        //TODO::findAll con paginado
+    }
+
 
     @PostMapping
     public Client create(@RequestBody Client client){
@@ -42,5 +49,7 @@ public class ClientController extends CrudController {
         //TODO: crear metodo delete con un find primero y que devuelva un 200?
         repository.deleteById(id);
     }
+
+ */
 
 }

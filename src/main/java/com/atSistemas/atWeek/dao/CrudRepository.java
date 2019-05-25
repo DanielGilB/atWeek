@@ -4,8 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Dao<T>{
-
-    public T save(T t);
-
+public interface CrudRepository<T, ID> extends JpaRepository<T, ID>{
 }
