@@ -11,9 +11,11 @@ public class CrudController<T, ID> {
     @Autowired
     private CrudService<T, ID> service;
 
-    public CrudController(CrudService<T, ID> service){
+    /*public CrudController(CrudService<T, ID> service){
         this.service = service;
     }
+
+     */
 
     @PostMapping
     public T create(@RequestBody T t){
