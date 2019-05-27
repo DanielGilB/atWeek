@@ -2,7 +2,9 @@ package com.atSistemas.atWeek.service;
 
 import com.atSistemas.atWeek.dao.CrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CrudServiceImp<T, ID> implements CrudService<T, ID> {
 
     @Autowired
