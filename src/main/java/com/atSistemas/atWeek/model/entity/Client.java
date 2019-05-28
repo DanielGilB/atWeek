@@ -15,8 +15,8 @@ public class Client {
     private Integer id;
 
     private String name;
-    private String surname;
+    private String dni;
 
-    @OneToMany
-    private Set<Rent> rents = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Rental> rentals = new HashSet<>();
 }

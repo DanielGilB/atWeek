@@ -1,10 +1,8 @@
 package com.atSistemas.atWeek.model.entity;
 
-import com.atSistemas.atWeek.model.entity.Car;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +14,13 @@ public class Rate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private LocalDate start_at;
-    private LocalDate end_at;
+    private String startDate;
+    private String endDate;
 
     @Column(name="Price", columnDefinition="Decimal(10,2) default '0.00'")
     private Double price;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Car> cars = new ArrayList<>();
 }

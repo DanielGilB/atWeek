@@ -1,7 +1,6 @@
 package com.atSistemas.atWeek.controller.api;
 
 import com.atSistemas.atWeek.controller.CrudController;
-import com.atSistemas.atWeek.dao.client.ClientRepository;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.model.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;

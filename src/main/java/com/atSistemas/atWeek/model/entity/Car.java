@@ -16,13 +16,12 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String plate;
-    private String model;
-    private String brand;
+    private String carPlate;
+    private String registrationYear;
 
     @ManyToMany(mappedBy = "cars", fetch = FetchType.LAZY)
     private Set<Rate> rates = new HashSet<>();
 
-    @OneToMany(mappedBy = "car")
-    private List<Rent> rents = new ArrayList<>();
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)
+    private List<Rental> rentals = new ArrayList<>();
 }

@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/car")
-public class CarController extends CrudController<Car, Integer> {
+public class CarController extends CrudController<Car, Integer>{
 /*
     @Autowired
-    private CarService carService;
+    private CarService service;
 
-    public CarController(CarService carService){
-        super(carService);
-        this.carService = carService;
+    public CarController(CarService service){
+        super(service);
     }
-*/
 
+ */
 }
