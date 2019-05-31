@@ -1,14 +1,14 @@
 package com.atSistemas.atWeek.controller.api;
 
+import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.Car.CarMapper;
 import com.atSistemas.atWeek.model.dto.CarDTO;
-import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.service.car.CarServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.validation.ValidationException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,8 +26,15 @@ public class CarController{
         return Optional.ofNullable(id)
                 .flatMap(service::findOne)
                 .map(mapper::map)
-                .orElseThrow(() -> new ValidationException("This car not exits"));
+                .orElseThrow(() -> new NotFoundException("This car does not exist"));
     }
+
+    @GetMapping
+    public List<CarDTO> findAll(){
+        //TODO: paginar
+        return mapper.map(service.findAll());
+    }
+
 
     @PostMapping
     public CarDTO create(@RequestBody CarDTO dto){
@@ -36,7 +43,7 @@ public class CarController{
                 .map(mapper::map)
                 .map(service::create)
                 .map(mapper::map)
-                .orElseThrow(() -> new ValidationException("FAIL!!"));
+                .orElseThrow(() -> new NotFoundException("This car does not exist"));
     }
 
     @PutMapping
@@ -45,7 +52,14 @@ public class CarController{
                 .map(mapper::map)
                 .map(service::update)
                 .map(mapper::map)
-                .orElseThrow(() -> new ValidationException("This car not exits"));
+                .orElseThrow(() -> new NotFoundException("This car does not exist"));
+    }
+
+    @DeleteMapping
+    public void delete(@RequestBody CarDTO dto){
+         Optional.ofNullable(dto)
+            .map(mapper::map)
+            .ifPresent(service::delete);
     }
 
 }

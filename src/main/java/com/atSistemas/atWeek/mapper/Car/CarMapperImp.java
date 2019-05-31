@@ -4,7 +4,9 @@ import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class CarMapperImp implements CarMapper{
@@ -36,5 +38,13 @@ public class CarMapperImp implements CarMapper{
                 { dto.setRegistrationYear(date.toString()); } );
 
         return dto;
+    }
+
+    @Override
+    public List<CarDTO> map(List<Car> cars) {
+
+        return cars.stream()
+                    .map(this::map)
+                    .collect(Collectors.toList());
     }
 }

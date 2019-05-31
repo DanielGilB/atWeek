@@ -21,7 +21,7 @@ public class CarServiceImp implements CarService{
 
     @Override
     public List<Car> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
