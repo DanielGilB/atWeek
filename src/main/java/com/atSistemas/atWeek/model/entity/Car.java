@@ -3,7 +3,6 @@ package com.atSistemas.atWeek.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 

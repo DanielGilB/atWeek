@@ -1,4 +1,4 @@
-package com.atSistemas.atWeek.mapper.Car;
+package com.atSistemas.atWeek.mapper.car;
 
 import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
@@ -8,7 +8,7 @@ import java.util.List;
 public interface CarMapper {
 
     /**
-     * map CarDto to Car entity
+     * map CarDto to car entity
      * @param dto
      * @return
      * @throws NumberFormatException
@@ -16,7 +16,7 @@ public interface CarMapper {
     Car map(CarDTO dto) throws NumberFormatException;
 
     /**
-     * map Car entity to CarDTO
+     * map car entity to CarDTO
      * @param car
      * @return
      */

@@ -1,4 +1,4 @@
-package com.atSistemas.atWeek.mapper.Car;
+package com.atSistemas.atWeek.mapper.car;
 
 import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
@@ -19,9 +19,10 @@ public class CarMapperImp implements CarMapper{
 
         carDTO.map(CarDTO::getId).ifPresent(car::setId);
         carDTO.map(CarDTO::getCarPlate).ifPresent(car::setCarPlate);
-        carDTO.map(CarDTO::getRegistrationYear).ifPresent(date ->
-                { try { car.setRegistrationYear(Integer.valueOf(date)); }
-                catch (NumberFormatException e){ throw e; }});
+        carDTO.map(CarDTO::getRegistrationYear).ifPresent(date -> {
+                    try { car.setRegistrationYear(Integer.valueOf(date)); }
+                    catch (NumberFormatException e){ throw e; }}
+                );
 
         return car;
     }
@@ -34,8 +35,9 @@ public class CarMapperImp implements CarMapper{
 
         carEntity.map(Car::getId).ifPresent(dto::setId);
         carEntity.map(Car::getCarPlate).ifPresent(dto::setCarPlate);
-        carEntity.map(Car::getRegistrationYear).ifPresent(date ->
-                { dto.setRegistrationYear(date.toString()); } );
+        carEntity.map(Car::getRegistrationYear).ifPresent(date -> {
+                    dto.setRegistrationYear(date.toString());
+                });
 
         return dto;
     }

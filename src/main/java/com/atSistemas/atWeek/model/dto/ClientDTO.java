@@ -3,7 +3,7 @@ package com.atSistemas.atWeek.model.dto;
 import lombok.Data;
 
 @Data
-public class ClientDto {
+public class ClientDTO {
 
     private Integer id;
     private String name;

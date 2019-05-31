@@ -1,4 +1,6 @@
 package com.atSistemas.atWeek.service.rate;
 
-public class RateService {
+public interface RateService {
+
+
 }

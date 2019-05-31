@@ -1,48 +1,64 @@
 package com.atSistemas.atWeek.controller.api;
 
+import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.mapper.client.ClientMapper;
+import com.atSistemas.atWeek.model.dto.ClientDTO;
+import com.atSistemas.atWeek.service.client.ClientServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
-public class ClientController /* extends CrudController */ {
-/*
-    @Autowired
-    private final ClientRepository repository;
+public class ClientController {
 
-    public ClientController(ClientRepository repository){
-        this.repository = repository;
-    }
+    @Autowired
+    private ClientServiceImp service;
+
+    @Autowired
+    private ClientMapper mapper;
 
     @GetMapping("/{id}")
-    public Client findOne(@PathVariable("id") Integer id){
-        return repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Not found entity with value "+id));
+    public ClientDTO findOne(@PathVariable("id") Integer id){
+        return Optional.ofNullable(id)
+                .flatMap(service::findOne)
+                .map(mapper::map)
+                .orElseThrow(() -> new NotFoundException("This client does not exist"));
     }
 
     @GetMapping
-    public List<Client> findAll(){
-        return repository.findAll();
-        //TODO::findAll con paginado
+    public List<ClientDTO> findAll(){
+        //TODO: paginar
+        return mapper.map(service.findAll());
     }
 
 
     @PostMapping
-    public Client create(@RequestBody Client client){
-        return repository.save(client);
+    public ClientDTO create(@RequestBody ClientDTO dto){
+        //TODO: validar que no exista ya un cliente con mismo dni
+        return Optional.ofNullable(dto)
+                .map(mapper::map)
+                .map(service::create)
+                .map(mapper::map)
+                .orElseThrow(() -> new NotFoundException("This client does not exist"));
     }
 
-    @PutMapping("/{id}")
-    public Client edit(@PathVariable("id") Integer id){
-        //TODO: crear metodo update
-        return repository.findById(id).orElse(new Client());
+    @PutMapping
+    public ClientDTO update(@RequestBody ClientDTO dto){
+        return Optional.ofNullable(dto)
+                .map(mapper::map)
+                .map(service::update)
+                .map(mapper::map)
+                .orElseThrow(() -> new NotFoundException("This client does not exist"));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Integer id){
-        //TODO: crear metodo delete con un find primero y que devuelva un 200?
-        repository.deleteById(id);
+    @DeleteMapping
+    public void delete(@RequestBody ClientDTO dto){
+        Optional.ofNullable(dto)
+                .map(mapper::map)
+                .ifPresent(service::delete);
     }
-
- */
 
 }

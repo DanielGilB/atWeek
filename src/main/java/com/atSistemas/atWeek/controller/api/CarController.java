@@ -1,7 +1,7 @@
 package com.atSistemas.atWeek.controller.api;
 
 import com.atSistemas.atWeek.exception.NotFoundException;
-import com.atSistemas.atWeek.mapper.Car.CarMapper;
+import com.atSistemas.atWeek.mapper.car.CarMapper;
 import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.service.car.CarServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
