@@ -18,22 +18,20 @@ public class RentalMapperImp implements RentalMapper {
 
         Rental rental = new Rental();
         Optional<RentalDTO> rentalDTO = Optional.ofNullable(dto);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-[uuuu][uu]");
 
         rentalDTO.map(RentalDTO::getId).ifPresent(rental::setId);
-        rentalDTO.map(RentalDTO::getPrice).ifPresent(rental::setPrice);
         rentalDTO.map(RentalDTO::getCar).ifPresent(rental::setCar);
         rentalDTO.map(RentalDTO::getClient).ifPresent(rental::setClient);
+        rentalDTO.map(RentalDTO::getPrice).ifPresent(rental::setPrice);
         rentalDTO.map(RentalDTO::getStartDate).ifPresent(date -> {
                     try { rental.setStartDate(LocalDate.parse(dto.getStartDate(), formatter)); }
                     catch (DateTimeParseException e) { throw e; }
                 });
-
         rentalDTO.map(RentalDTO::getEndDate).ifPresent(date -> {
                     try { rental.setEndDate( LocalDate.parse(dto.getEndDate(), formatter)); }
                     catch (DateTimeParseException e){ throw e; }
                 });
-
 
         return rental;
     }

@@ -17,18 +17,20 @@ public class RateMapperImp implements RateMapper {
 
         Rate rate = new Rate();
         Optional<RateDTO> rateDTO = Optional.ofNullable(dto);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-[uuuu][uu]");
 
         rateDTO.map(RateDTO::getId).ifPresent(rate::setId);
         rateDTO.map(RateDTO::getPrice).ifPresent(rate::setPrice);
         rateDTO.map(RateDTO::getStartDate).ifPresent(date -> {
-                try { rate.setStartDate( LocalDate.parse(dto.getStartDate(), formatter)); }
-                catch (DateTimeParseException e){ throw e; }}
-            );
+                    try { rate.setStartDate( LocalDate.parse(dto.getStartDate(), formatter)); }
+                    catch (DateTimeParseException e){ throw e; }
+                });
+
+
         rateDTO.map(RateDTO::getEndDate).ifPresent(date -> {
-                try { rate.setEndDate( LocalDate.parse(dto.getEndDate(), formatter)); }
-                catch (DateTimeParseException e){ throw e; }}
-            );
+            try { rate.setEndDate( LocalDate.parse(dto.getEndDate(), formatter)); }
+            catch (DateTimeParseException e){ throw e; }
+        });
 
         return rate;
     }

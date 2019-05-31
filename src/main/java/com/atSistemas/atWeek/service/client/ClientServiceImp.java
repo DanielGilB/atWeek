@@ -15,6 +15,11 @@ public class ClientServiceImp implements ClientService{
     private ClientRepository repository;
 
     @Override
+    public Optional<Client> search(String dni) {
+        return repository.findByDni(dni);
+    }
+
+    @Override
     public Optional<Client> findOne(Integer id) {
         return repository.findById(id);
     }

@@ -15,6 +15,11 @@ public class CarServiceImp implements CarService{
     private CarRepository repository;
 
     @Override
+    public Optional<Car> search(String carPlate) {
+        return repository.findByCarPlate(carPlate);
+    }
+
+    @Override
     public Optional<Car> findOne(Integer id) {
         return repository.findById(id);
     }

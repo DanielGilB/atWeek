@@ -9,6 +9,13 @@ import java.util.Optional;
 public interface CarService {
 
     /**
+     * Search a car by CarPlate
+     * @param carPlate
+     * @return car with {carPlate} if exists
+     */
+    Optional<Car> search(String carPlate);
+
+    /**
      * find a car by id
      * @param id
      * @return car with id if exists

@@ -1,8 +1,10 @@
 package com.atSistemas.atWeek.controller.api;
 
+import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.car.CarMapper;
 import com.atSistemas.atWeek.model.dto.CarDTO;
+import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.service.car.CarServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,17 @@ public class CarController{
     @Autowired
     private CarMapper mapper;
 
+    @GetMapping("plate/{carPlate}")
+    public CarDTO search(@PathVariable("carPlate") String carPlate){
+        return Optional.ofNullable(carPlate)
+                .flatMap(service::search)
+                .map(mapper::map)
+                .orElseThrow(() -> new NotFoundException("There is no car with this Car Plate"));
+    }
+
     @GetMapping("/{id}")
     public CarDTO findOne(@PathVariable("id") Integer id){
+
         return Optional.ofNullable(id)
                 .flatMap(service::findOne)
                 .map(mapper::map)
@@ -38,7 +49,10 @@ public class CarController{
 
     @PostMapping
     public CarDTO create(@RequestBody CarDTO dto){
-        //TODO: validar que no exista ya un coche con misma matricula
+
+        Optional<Car> existsCar = service.search(dto.getCarPlate());
+        if(existsCar.isPresent()) throw new ConflictException("there is already a car with that plate");
+
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::create)
@@ -57,9 +71,16 @@ public class CarController{
 
     @DeleteMapping
     public void delete(@RequestBody CarDTO dto){
-         Optional.ofNullable(dto)
+
+        /*
+        Optional.ofNullable(dto)
             .map(mapper::map)
-            .ifPresent(service::delete);
+                 .ifPresent(service::delete); // hasta java 9 no hay ifPresentorElse :(
+         */
+
+        Optional<Car> existsCar = service.findOne(dto.getId());
+        if(!existsCar.isPresent()) throw new NotFoundException("This car does not exist");
+        else service.delete(mapper.map(dto));
     }
 
 }

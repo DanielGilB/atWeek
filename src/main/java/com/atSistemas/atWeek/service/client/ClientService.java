@@ -8,6 +8,13 @@ import java.util.Optional;
 public interface ClientService {
 
     /**
+     * search a client by dni
+     * @param dni
+     * @return client with {dni}
+     */
+    Optional<Client> search(String dni);
+
+    /**
      * find a client by id
      * @param id
      * @return client with {id} if exists
