@@ -3,15 +3,18 @@ package com.atSistemas.atWeek.mapper.rental;
 import com.atSistemas.atWeek.model.dto.RentalDTO;
 import com.atSistemas.atWeek.model.entity.Rental;
 
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public interface RentalMapper {
+
     /**
      * map RentalDTO to client entity
      * @param dto
      * @return
+     * @throws DateTimeParseException
      */
-    Rental map(RentalDTO dto);
+    Rental map(RentalDTO dto) throws DateTimeParseException;
 
     /**
      * map client entity to RentalDTO

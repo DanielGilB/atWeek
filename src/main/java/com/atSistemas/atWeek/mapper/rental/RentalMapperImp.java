@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,13 +25,14 @@ public class RentalMapperImp implements RentalMapper {
         rentalDTO.map(RentalDTO::getCar).ifPresent(rental::setCar);
         rentalDTO.map(RentalDTO::getClient).ifPresent(rental::setClient);
         rentalDTO.map(RentalDTO::getStartDate).ifPresent(date -> {
-                    try { rental.setStartDate( LocalDate.parse(dto.getStartDate(), formatter)); }
-                    catch (NumberFormatException e){ throw e; }}
-                 );
+                    try { rental.setStartDate(LocalDate.parse(dto.getStartDate(), formatter)); }
+                    catch (DateTimeParseException e) { throw e; }
+                });
+
         rentalDTO.map(RentalDTO::getEndDate).ifPresent(date -> {
                     try { rental.setEndDate( LocalDate.parse(dto.getEndDate(), formatter)); }
-                    catch (NumberFormatException e){ throw e; }}
-                );
+                    catch (DateTimeParseException e){ throw e; }
+                });
 
 
         return rental;
