@@ -16,7 +16,7 @@ public class Car {
     private Integer id;
 
     private String carPlate;
-    private LocalDate registrationYear;
+    private Integer registrationYear;
 
     @ManyToMany(mappedBy = "cars", fetch = FetchType.LAZY)
     private Set<Rate> rates = new HashSet<>();
