@@ -10,27 +10,27 @@ public interface RateService {
     /**
      * find a rate by id
      * @param id
-     * @return
+     * @return with id if exists
      */
     Optional<Rate> findOne(Integer id);
 
     /**
      * return list with all rate else empty list
-     * @return
+     * @return list with all exsiting rates
      */
     List<Rate> findAll();
 
     /**
      * create a new rate
      * @param rate
-     * @return
+     * @return car created
      */
     Rate create(Rate rate);
 
     /**
      * update existing rate
      * @param rate
-     * @return
+     * @return rate updated
      */
     Rate update(Rate rate);
 

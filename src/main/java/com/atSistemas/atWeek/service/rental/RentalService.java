@@ -10,27 +10,27 @@ public interface RentalService {
     /**
      * find a rental by id
      * @param id
-     * @return
+     * @return with id if exists
      */
     Optional<Rental> findOne(Integer id);
 
     /**
      * return list with all rental else empty list
-     * @return
+     * @return list with all exsiting rentals
      */
     List<Rental> findAll();
 
     /**
      * create a new rental
      * @param rental
-     * @return
+     * @return car created
      */
     Rental create(Rental rental);
 
     /**
      * update existing rental
      * @param rental
-     * @return
+     * @return rental updated
      */
     Rental update(Rental rental);
 

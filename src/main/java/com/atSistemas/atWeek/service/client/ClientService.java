@@ -10,27 +10,27 @@ public interface ClientService {
     /**
      * find a client by id
      * @param id
-     * @return
+     * @return client with {id} if exists
      */
     Optional<Client> findOne(Integer id);
 
     /**
      * return list with all client else empty list
-     * @return
+     * @return list with all exsiting cars
      */
     List<Client> findAll();
 
     /**
      * create a new client
      * @param client
-     * @return
+     * @return new client
      */
     Client create(Client client);
 
     /**
      * update existing client
      * @param client
-     * @return
+     * @return client updated
      */
     Client update(Client client);
 

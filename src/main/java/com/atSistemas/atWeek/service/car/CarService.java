@@ -11,27 +11,27 @@ public interface CarService {
     /**
      * find a car by id
      * @param id
-     * @return
+     * @return car with id if exists
      */
     Optional<Car> findOne(Integer id);
 
     /**
      * return list with all cars else empty list
-     * @return
+     * @return list with all exsiting cars
      */
     List<Car> findAll();
 
     /**
      * create a new car
      * @param car
-     * @return
+     * @return car created
      */
     Car create(Car car);
 
     /**
      * update existing car
      * @param car
-     * @return
+     * @return car updated
      */
     Car update(Car car);
 
