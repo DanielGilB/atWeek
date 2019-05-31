@@ -17,6 +17,6 @@ public class Client {
     private String name;
     private String dni;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private Set<Rental> rentals = new HashSet<>();
 }

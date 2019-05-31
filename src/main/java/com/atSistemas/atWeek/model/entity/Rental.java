@@ -1,7 +1,5 @@
 package com.atSistemas.atWeek.model.entity;
 
-import com.atSistemas.atWeek.model.entity.Car;
-import com.atSistemas.atWeek.model.entity.Client;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,8 +13,8 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     @Column(columnDefinition="Decimal(10,2) default '0.00'")
     private Double price;

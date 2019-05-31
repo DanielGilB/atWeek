@@ -1,12 +1,6 @@
 package com.atSistemas.atWeek.controller.api;
 
-import com.atSistemas.atWeek.controller.CrudController;
-import com.atSistemas.atWeek.exception.NotFoundException;
-import com.atSistemas.atWeek.model.entity.Client;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/client")
