@@ -37,7 +37,6 @@ public class RateController {
 
     @PostMapping
     public RateDTO create(@RequestBody RateDTO dto){
-        //TODO: validar que no exista ya un coche con misma matricula
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::create)

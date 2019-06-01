@@ -1,11 +1,32 @@
 package com.atSistemas.atWeek.service.rental;
 
+import com.atSistemas.atWeek.exception.ConflictException;
+import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Rental;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface RentalService {
+
+    /**
+     * validate if possible to create a rental
+     * @param rental
+     * @throws NotFoundException if client or car does not exist
+     * @throws ConflictException if the car is not available
+     */
+    void validate(Rental rental) throws NotFoundException, ConflictException;
+
+    /**
+     * check is a car is ordered between startDate and endDate
+     * @param car
+     * @param startDate
+     * @param endDate
+     * @return if car is ordered between dates
+     */
+    boolean isCarOrderedBetweenDates(Car car, LocalDate startDate, LocalDate endDate);
 
     /**
      * find a rental by id

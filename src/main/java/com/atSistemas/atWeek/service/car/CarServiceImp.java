@@ -1,10 +1,13 @@
 package com.atSistemas.atWeek.service.car;
 
 import com.atSistemas.atWeek.dao.CarRepository;
+import com.atSistemas.atWeek.dao.RentalRepository;
 import com.atSistemas.atWeek.model.entity.Car;
+import com.atSistemas.atWeek.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

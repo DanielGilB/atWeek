@@ -1,5 +1,6 @@
 package com.atSistemas.atWeek.service.rate;
 
+import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Rate;
 
 import java.util.List;
@@ -39,4 +40,5 @@ public interface RateService {
      * @param rate
      */
     void delete(Rate rate);
+
 }

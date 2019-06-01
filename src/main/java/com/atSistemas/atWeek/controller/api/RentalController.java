@@ -1,5 +1,6 @@
 package com.atSistemas.atWeek.controller.api;
 
+import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.client.ClientMapper;
 import com.atSistemas.atWeek.mapper.rental.RentalMapper;
@@ -38,8 +39,12 @@ public class RentalController {
 
 
     @PostMapping
-    public RentalDTO create(@RequestBody RentalDTO dto){
-        //TODO: validar que no existan clientes, coches, este no este alquilado y precio
+    public RentalDTO create(@RequestBody RentalDTO dto) throws NotFoundException, ConflictException {
+
+        Optional.ofNullable(dto)
+                .map(mapper::map)
+                .ifPresent(service::validate);
+
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::create)
