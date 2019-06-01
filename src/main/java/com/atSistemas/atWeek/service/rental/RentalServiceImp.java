@@ -32,7 +32,7 @@ public class RentalServiceImp implements RentalService {
 
     @Autowired
     private RateService rateService;
-/*
+
     @Override
     public Double price(Rental rental) {
         Period period = Period.between(rental.getStartDate(), rental.getEndDate());
@@ -50,7 +50,12 @@ public class RentalServiceImp implements RentalService {
                 .map(rateService::findCurrentRate)
                 .orElseThrow(() -> new NotFoundException("This car has not associated rate"));
     }
-*/
+
+    @Override
+    public List<Rental> findRentalsClient(Client client){
+        return repository.findAllByClient(client);
+    }
+
     @Override
     public void validate(Rental rental) throws NotFoundException, ConflictException {
 
@@ -89,7 +94,7 @@ public class RentalServiceImp implements RentalService {
     @Override
     public Rental create(Rental rental) {
         this.validate(rental);
-        //rental.setPrice(this.price(rental));
+        rental.setPrice(this.price(rental));
         return repository.save(rental);
     }
 

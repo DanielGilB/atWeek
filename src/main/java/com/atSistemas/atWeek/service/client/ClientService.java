@@ -1,14 +1,24 @@
 package com.atSistemas.atWeek.service.client;
 
 import com.atSistemas.atWeek.exception.ConflictException;
+import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Client;
+import com.atSistemas.atWeek.model.entity.Rental;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClientService {
 
+
+    /**
+     * find all rents associated to a client
+     * @param id
+     * @return client's rates list
+     * @throws NotFoundException
+     */
+    List<Rental> findRentals(Integer id) throws NotFoundException;
 
     /**
      *  validate unique dni and requireds field to create a client

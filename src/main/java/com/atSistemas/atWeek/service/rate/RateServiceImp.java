@@ -16,12 +16,16 @@ public class RateServiceImp implements RateService{
     @Autowired
     private RateRepository repository;
 
-    /*
     @Override
     public Optional<Rate> findCurrentRate(Car car) {
-        return repository.findFirstByStartDateNearAndCar(LocalDate.now(), car);
+        //return repository.findFirstByStartDateNearAndCar(LocalDate.now(), car);
+
+        LocalDate jaja = LocalDate.now();
+        return repository.findTopByStartDateLessThanEqualAndCarsOrderByStartDateDesc(jaja, car);
+
+        //return repository.findFirstByPriceAndCars(9.0, car);
     }
-    */
+
 
     @Override
     public Optional<Rate> findOne(Integer id) {

@@ -25,7 +25,7 @@ public class RateController {
         return Optional.ofNullable(id)
                 .flatMap(service::findOne)
                 .map(mapper::map)
-                .orElseThrow(() -> new NotFoundException("This car does not exist"));
+                .orElseThrow(() -> new NotFoundException("This rate does not exist"));
     }
 
     @GetMapping
@@ -41,7 +41,7 @@ public class RateController {
                 .map(mapper::map)
                 .map(service::create)
                 .map(mapper::map)
-                .orElseThrow(() -> new NotFoundException("This car does not exist"));
+                .orElseThrow(() -> new NotFoundException("This rate does not exist"));
     }
 
     @PutMapping
@@ -50,7 +50,7 @@ public class RateController {
                 .map(mapper::map)
                 .map(service::update)
                 .map(mapper::map)
-                .orElseThrow(() -> new NotFoundException("This car does not exist"));
+                .orElseThrow(() -> new NotFoundException("This rate does not exist"));
     }
 
     @DeleteMapping

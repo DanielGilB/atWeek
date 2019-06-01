@@ -55,7 +55,7 @@ public class CarServiceImp implements CarService{
 
     @Override
     public Car update(Car car) {
-       // this.validate(car);
+        this.validate(car);
         return repository.save(car);
     }
 

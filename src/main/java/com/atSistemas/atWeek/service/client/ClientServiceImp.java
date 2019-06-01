@@ -2,8 +2,11 @@ package com.atSistemas.atWeek.service.client;
 
 import com.atSistemas.atWeek.dao.ClientRepository;
 import com.atSistemas.atWeek.exception.ConflictException;
+import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Client;
+import com.atSistemas.atWeek.model.entity.Rental;
+import com.atSistemas.atWeek.service.rental.RentalServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,18 @@ public class ClientServiceImp implements ClientService{
 
     @Autowired
     private ClientRepository repository;
+
+    @Autowired
+    private RentalServiceImp service;
+
+    @Override
+    public List<Rental> findRentals(Integer id) throws NotFoundException{
+
+        return Optional.ofNullable(id)
+                .flatMap(this::findOne)
+                .map(service::findRentalsClient)
+                .orElseThrow(() -> new NotFoundException("There is not client with this id"));
+    }
 
     @Override
     public void validate(Client client) throws ConflictException, UnprocessableException {

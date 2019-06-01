@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface RateRepository extends JpaRepository<Rate, Integer> {
 
-    //Optional<Rate> findFirstByStartDateNearAndCar(LocalDate date, Car car);
+    //Optional<Rate> findFirstByPriceAndCars(Double price, Car car);
+
+    Optional<Rate> findTopByStartDateLessThanEqualAndCarsOrderByStartDateDesc(LocalDate date, Car car);
 
 }

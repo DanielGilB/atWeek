@@ -14,7 +14,7 @@ public interface RateService {
      * @param car
      * @return car rate from today
      */
-    //Optional<Rate> findCurrentRate(Car car);
+    Optional<Rate> findCurrentRate(Car car);
 
     /**
      * find a rate by id

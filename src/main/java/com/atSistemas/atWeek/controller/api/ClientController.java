@@ -4,7 +4,9 @@ import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.mapper.client.ClientMapper;
+import com.atSistemas.atWeek.mapper.rental.RentalMapper;
 import com.atSistemas.atWeek.model.dto.ClientDTO;
+import com.atSistemas.atWeek.model.dto.RentalDTO;
 import com.atSistemas.atWeek.model.entity.Client;
 import com.atSistemas.atWeek.service.client.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ClientController {
     @Autowired
     private ClientMapper mapper;
 
+    @Autowired
+    private RentalMapper rentalMapper;
+
     @GetMapping("dni/{dni}")
     public ClientDTO search(@PathVariable("dni") String dni){
         return Optional.ofNullable(dni)
@@ -37,6 +42,11 @@ public class ClientController {
                 .flatMap(service::findOne)
                 .map(mapper::map)
                 .orElseThrow(() -> new NotFoundException("This client does not exist"));
+    }
+
+    @GetMapping("/{id}/rental")
+    public List<RentalDTO> findRentals(@PathVariable("id") Integer id){
+        return rentalMapper.map(service.findRentals(id));
     }
 
     @GetMapping
