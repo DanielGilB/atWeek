@@ -3,10 +3,18 @@ package com.atSistemas.atWeek.service.rate;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Rate;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface RateService {
+
+    /**
+     * find car rate from today
+     * @param car
+     * @return car rate from today
+     */
+    //Optional<Rate> findCurrentRate(Car car);
 
     /**
      * find a rate by id

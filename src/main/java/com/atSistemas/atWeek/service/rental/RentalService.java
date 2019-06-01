@@ -3,6 +3,7 @@ package com.atSistemas.atWeek.service.rental;
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.model.entity.Car;
+import com.atSistemas.atWeek.model.entity.Rate;
 import com.atSistemas.atWeek.model.entity.Rental;
 
 import java.time.LocalDate;
@@ -10,6 +11,21 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RentalService {
+
+    /**
+     * create a price to a rent
+     * @param rental
+     * @return
+     */
+   // Double price(Rental rental);
+
+    /**
+     * find current rate from a car
+     * @param car
+     * @return current rate
+     * @throws NotFoundException does not exist rate for this date
+     */
+    //Optional<Rate> currentRate(Car car) throws NotFoundException;
 
     /**
      * validate if possible to create a rental

@@ -1,11 +1,22 @@
 package com.atSistemas.atWeek.service.client;
 
+import com.atSistemas.atWeek.exception.ConflictException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Client;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClientService {
+
+
+    /**
+     *  validate unique dni and requireds field to create a client
+     * @param client
+     * @throws ConflictException already exist a client with dni
+     * @throws UnprocessableException missing required field
+     */
+    void validate(Client client) throws ConflictException, UnprocessableException;
 
     /**
      * search a client by dni

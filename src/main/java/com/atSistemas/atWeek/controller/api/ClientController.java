@@ -2,6 +2,7 @@ package com.atSistemas.atWeek.controller.api;
 
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.mapper.client.ClientMapper;
 import com.atSistemas.atWeek.model.dto.ClientDTO;
 import com.atSistemas.atWeek.model.entity.Client;
@@ -46,11 +47,7 @@ public class ClientController {
 
 
     @PostMapping
-    public ClientDTO create(@RequestBody ClientDTO dto){
-
-        Optional<Client> existsClient = service.search(dto.getDni());
-        if(existsClient.isPresent()) throw new ConflictException("there is already a client with that dni");
-
+    public ClientDTO create(@RequestBody ClientDTO dto) throws ConflictException, UnprocessableException {
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::create)
@@ -59,7 +56,7 @@ public class ClientController {
     }
 
     @PutMapping
-    public ClientDTO update(@RequestBody ClientDTO dto){
+    public ClientDTO update(@RequestBody ClientDTO dto) throws ConflictException, UnprocessableException{
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::update)
