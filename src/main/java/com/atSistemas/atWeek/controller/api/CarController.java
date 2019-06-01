@@ -2,6 +2,7 @@ package com.atSistemas.atWeek.controller.api;
 
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.mapper.car.CarMapper;
 import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
@@ -48,11 +49,7 @@ public class CarController{
 
 
     @PostMapping
-    public CarDTO create(@RequestBody CarDTO dto){
-
-        Optional<Car> existsCar = service.search(dto.getCarPlate());
-        if(existsCar.isPresent()) throw new ConflictException("there is already a car with that plate");
-
+    public CarDTO create(@RequestBody CarDTO dto) throws ConflictException, UnprocessableException {
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::create)
@@ -61,7 +58,7 @@ public class CarController{
     }
 
     @PutMapping
-    public CarDTO update(@RequestBody CarDTO dto){
+    public CarDTO update(@RequestBody CarDTO dto) throws ConflictException, UnprocessableException{
         return Optional.ofNullable(dto)
                 .map(mapper::map)
                 .map(service::update)

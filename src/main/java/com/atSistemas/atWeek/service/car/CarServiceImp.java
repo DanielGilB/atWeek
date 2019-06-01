@@ -2,6 +2,8 @@ package com.atSistemas.atWeek.service.car;
 
 import com.atSistemas.atWeek.dao.CarRepository;
 import com.atSistemas.atWeek.dao.RentalRepository;
+import com.atSistemas.atWeek.exception.ConflictException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,23 @@ public class CarServiceImp implements CarService{
 
     @Autowired
     private CarRepository repository;
+
+    @Override
+    public void validate(Car car) throws ConflictException, UnprocessableException {
+
+
+        Optional.ofNullable(car)
+                .map(Car::getCarPlate)
+                .orElseThrow(() -> new UnprocessableException("Car Plate is field required"));
+
+        Optional.ofNullable(car)
+                .map(Car::getCarPlate)
+                .flatMap(this::search)
+                .ifPresent(c -> {
+                    if(!c.getId().equals(car.getId())) // checks if is the same car
+                        throw new ConflictException("There is already a car with that plate");
+                });
+    }
 
     @Override
     public Optional<Car> search(String carPlate) {
@@ -34,11 +53,13 @@ public class CarServiceImp implements CarService{
 
     @Override
     public Car create(Car car) {
+        this.validate(car);
         return repository.save(car);
     }
 
     @Override
     public Car update(Car car) {
+        this.validate(car);
         return repository.save(car);
     }
 
