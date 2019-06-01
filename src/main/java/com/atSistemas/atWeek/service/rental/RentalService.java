@@ -2,6 +2,7 @@ package com.atSistemas.atWeek.service.rental;
 
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Client;
 import com.atSistemas.atWeek.model.entity.Rate;
@@ -40,8 +41,10 @@ public interface RentalService {
      * @param rental
      * @throws NotFoundException if client or car does not exist
      * @throws ConflictException if the car is not available
+     * @throws UnprocessableException EndDate is greather than StartDate is empty
      */
-    void validate(Rental rental) throws NotFoundException, ConflictException;
+    void validate(Rental rental)
+            throws NotFoundException, ConflictException, UnprocessableException;
 
     /**
      * check is a car is ordered between startDate and endDate

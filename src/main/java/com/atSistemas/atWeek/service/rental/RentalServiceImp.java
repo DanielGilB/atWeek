@@ -3,6 +3,7 @@ package com.atSistemas.atWeek.service.rental;
 import com.atSistemas.atWeek.dao.RentalRepository;
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Client;
 import com.atSistemas.atWeek.model.entity.Rate;
@@ -57,7 +58,8 @@ public class RentalServiceImp implements RentalService {
     }
 
     @Override
-    public void validate(Rental rental) throws NotFoundException, ConflictException {
+    public void validate(Rental rental)
+            throws NotFoundException, ConflictException, UnprocessableException {
 
         Optional.ofNullable(rental)
                 .map(Rental::getClient)
@@ -70,6 +72,17 @@ public class RentalServiceImp implements RentalService {
                 .map(Car::getId)
                 .flatMap(carService::findOne)
                 .orElseThrow(() -> new NotFoundException("This car does not exist"));
+
+        Optional.ofNullable(rental)
+                .map(Rental::getStartDate)
+                .orElseThrow(() -> new UnprocessableException("Start Date is required"));
+
+        Optional.ofNullable(rental)
+                .map(Rental::getStartDate)
+                .orElseThrow(() -> new UnprocessableException("End Date is required"));
+
+        if(Optional.of(rental).get().getStartDate().isAfter(Optional.of(rental).get().getEndDate()))
+            throw new UnprocessableException("End Date must be greather than Start Date");
 
         if(isCarOrderedBetweenDates(rental.getCar(), rental.getStartDate(), rental.getEndDate()))
             throw new ConflictException("This car is not available in this date");
