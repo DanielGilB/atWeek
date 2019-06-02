@@ -4,7 +4,7 @@ import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.rental.RentalMapper;
 import com.atSistemas.atWeek.model.dto.RentalDTO;
-import com.atSistemas.atWeek.service.rental.RentalServiceImp;
+import com.atSistemas.atWeek.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class RentalController {
 
     @Autowired
-    private RentalServiceImp service;
+    private RentalService service;
 
     @Autowired
     private RentalMapper mapper;

@@ -18,7 +18,7 @@ public class RateServiceImp implements RateService{
 
     @Override
     public Optional<Rate> findCurrentRate(Car car) {
-        return repository.findTopByStartDateLessThanEqualAndCarsOrderByStartDateDesc(LocalDate.now(), car);
+        return repository.findTopByStartDateLessThanEqualAndEndDateGreaterThanAndCarsOrderByStartDateDesc(LocalDate.now(), LocalDate.now(), car);
     }
 
 

@@ -1,5 +1,7 @@
 package com.atSistemas.atWeek.controller.api;
 
+import com.atSistemas.atWeek.dao.CarRepository;
+import com.atSistemas.atWeek.dao.RentalRepository;
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
@@ -8,9 +10,12 @@ import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.service.car.CarServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +28,24 @@ public class CarController{
 
     @Autowired
     private CarMapper mapper;
+
+
+    @Autowired
+    private CarRepository carRepository;
+    @Autowired
+    private RentalRepository rentalRepository;
+
+    @GetMapping("/profitable")
+    public List<Integer> profitable(){
+        LocalDate startDate = LocalDate.of(2019, 05, 10);
+        LocalDate endDate = LocalDate.of(2019, 07, 10);
+
+        Pageable pageable = PageRequest.of(0,1); // limit 1
+       // List<Integer> result = carRepository.findTopProfitableCar(startDate, endDate, pageable);
+
+        return service.profitable(startDate, endDate, pageable);
+    }
+
 
     @GetMapping("plate/{carPlate}")
     public CarDTO search(@PathVariable("carPlate") String carPlate){

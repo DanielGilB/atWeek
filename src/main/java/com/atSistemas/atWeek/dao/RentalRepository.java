@@ -17,4 +17,5 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
     Optional<Rental> findFirstByEndDateBetweenAndCar(LocalDate startDate, LocalDate endDate, Car car);
 
     List<Rental> findAllByClient(Client client);
+
 }

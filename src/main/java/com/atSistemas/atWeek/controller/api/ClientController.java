@@ -8,7 +8,7 @@ import com.atSistemas.atWeek.mapper.rental.RentalMapper;
 import com.atSistemas.atWeek.model.dto.ClientDTO;
 import com.atSistemas.atWeek.model.dto.RentalDTO;
 import com.atSistemas.atWeek.model.entity.Client;
-import com.atSistemas.atWeek.service.client.ClientServiceImp;
+import com.atSistemas.atWeek.service.client.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class ClientController {
 
     @Autowired
-    private ClientServiceImp service;
+    private ClientService service;
 
     @Autowired
     private ClientMapper mapper;

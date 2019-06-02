@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface RateRepository extends JpaRepository<Rate, Integer> {
 
-    Optional<Rate> findTopByStartDateLessThanEqualAndCarsOrderByStartDateDesc(LocalDate date, Car car);
+    Optional<Rate> findTopByStartDateLessThanEqualAndEndDateGreaterThanAndCarsOrderByStartDateDesc(LocalDate start, LocalDate end, Car car);
 
 }

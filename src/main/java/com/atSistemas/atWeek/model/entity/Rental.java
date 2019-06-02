@@ -1,6 +1,7 @@
 package com.atSistemas.atWeek.model.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +13,9 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @CreationTimestamp
+    private LocalDate createdDate;
 
     private LocalDate startDate;
     private LocalDate endDate;

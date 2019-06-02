@@ -5,16 +5,32 @@ import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImp implements CarService{
 
     @Autowired
     private CarRepository repository;
+
+    public List<Integer> profitable(LocalDate start, LocalDate end, Pageable pageable) {
+        List<Integer> idCars = repository.findTopProfitableCar(start, end, pageable);
+        return idCars;
+/*
+        return idCars.stream()
+                .map(repository::findById)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+ */
+    }
 
     @Override
     public void validate(Car car) throws ConflictException, UnprocessableException {

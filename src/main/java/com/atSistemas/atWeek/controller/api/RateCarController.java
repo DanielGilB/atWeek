@@ -1,7 +1,5 @@
 package com.atSistemas.atWeek.controller.api;
 
-import com.atSistemas.atWeek.dao.CarRepository;
-import com.atSistemas.atWeek.dao.RateRepository;
 import com.atSistemas.atWeek.service.rateCar.RateCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +11,6 @@ public class RateCarController {
 
     @Autowired
     private RateCarService service;
-
-    @Autowired
-    private CarRepository carRepository;
-
-    @Autowired
-    private RateRepository rateRepository;
 
     @GetMapping("/rate/{idRate}/car/{idCar}")
     public void setRateToCar(@PathVariable("idRate") Integer idRate,

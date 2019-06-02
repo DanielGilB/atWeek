@@ -3,7 +3,7 @@ package com.atSistemas.atWeek.controller.api;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.rate.RateMapper;
 import com.atSistemas.atWeek.model.dto.RateDTO;
-import com.atSistemas.atWeek.service.rate.RateServiceImp;
+import com.atSistemas.atWeek.service.rate.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class RateController {
 
     @Autowired
-    private RateServiceImp service;
+    private RateService service;
 
     @Autowired
     private RateMapper mapper;
