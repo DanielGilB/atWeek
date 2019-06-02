@@ -17,6 +17,7 @@ public class Car {
     private Integer id;
 
     private String carPlate;
+    //FIXME: String(4) with regex
     private Integer registrationYear;
 
     @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)

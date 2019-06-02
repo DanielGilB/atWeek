@@ -1,13 +1,20 @@
 package com.atSistemas.atWeek.service.rate;
 
+import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Rate;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface RateService {
+
+    /**
+     * validate required field and corrects dates
+     * @param rate
+     * @throws UnprocessableException startDate < endDate or empty field
+     */
+    void validate(Rate rate) throws UnprocessableException;
 
     /**
      * find car rate from today
