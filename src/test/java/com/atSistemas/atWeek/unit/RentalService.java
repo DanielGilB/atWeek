@@ -1,5 +1,6 @@
 package com.atSistemas.atWeek.unit;
 
+import com.atSistemas.atWeek.dao.RentalRepository;
 import com.atSistemas.atWeek.model.entity.Car;
 import com.atSistemas.atWeek.model.entity.Client;
 import com.atSistemas.atWeek.model.entity.Rate;
@@ -37,6 +38,9 @@ public class RentalService {
 
     @Mock
     private RateCarServiceImp rateCarService;
+
+    @Mock
+    private RentalRepository repository;
 
     @Test
     public void whenCreateRentShouldReturnRentWithCurrentRatePerNumberOfDays(){
@@ -86,9 +90,12 @@ public class RentalService {
         // Client has been created with Mock service and associate to Rental on line #80
         Mockito.when(service.create(newRental)).thenReturn(newRental);
 
-        Period newRentalPeriod = Period.between(newRentalStartDate, newRentalEndDate);
-        Assert.assertEquals(java.util.Optional.ofNullable(newRental.getPrice()),
-                    newRentalPeriod.getDays() * currentRatePrice);
 
+        Mockito.verify(repository).save(newRental);
+
+        Period newRentalPeriod = Period.between(newRentalStartDate, newRentalEndDate);
+        Double expectedPrice = newRentalPeriod.getDays() * currentRatePrice;
+        Double newRentalPrice = newRental.getPrice();
+        Assert.assertEquals(newRentalPrice, expectedPrice);
     }
 }

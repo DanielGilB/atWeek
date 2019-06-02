@@ -18,7 +18,7 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     //README: Se quiere buscar el coche que más beneficio aporta en un intervalo de fechas
     // Entiendo -y así lo hago- que el beneficio se genera el día en el que se hace la reserva
     // y no durante su transcurso, es por lo que uso la fecha de creación en la consulta
-    @Query(value = "select c.id from Car c left join Rental r on c.id = r.car" +
+    @Query(value = "select c.id from Car c inner join Rental r on c.id = r.car" +
                     " where r.createdDate between :startDate and :endDate" +
                     " group by r.car order by sum(r.price) desc")
     List<Integer> findTopProfitableCar(@Param("startDate") LocalDate startDate,
