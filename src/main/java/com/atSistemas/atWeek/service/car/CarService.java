@@ -3,7 +3,6 @@ package com.atSistemas.atWeek.service.car;
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
 import com.atSistemas.atWeek.model.entity.Car;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,10 +14,9 @@ public interface CarService {
      * find top profitables car bewteeen 2 dates
      * @param start
      * @param end
-     * @param pageable
-     * @return list top profitables car
+     * @return Profitable Car
      */
-    List<Integer> profitable(LocalDate start, LocalDate end, Pageable pageable);
+    Optional<Car> profitable(LocalDate start, LocalDate end);
 
     /**
      *  validate unique Car Plate and requireds field to create a car

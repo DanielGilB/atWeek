@@ -3,8 +3,10 @@ package com.atSistemas.atWeek.service.car;
 import com.atSistemas.atWeek.dao.CarRepository;
 import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.UnprocessableException;
+import com.atSistemas.atWeek.model.dto.CarDTO;
 import com.atSistemas.atWeek.model.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +22,14 @@ public class CarServiceImp implements CarService{
     @Autowired
     private CarRepository repository;
 
-    public List<Integer> profitable(LocalDate start, LocalDate end, Pageable pageable) {
-        List<Integer> idCars = repository.findTopProfitableCar(start, end, pageable);
-        return idCars;
-/*
-        return idCars.stream()
-                .map(repository::findById)
-                .map(Optional::get)
-                .collect(Collectors.toList());
 
- */
+    public Optional<Car> profitable(LocalDate start, LocalDate end) {
+
+        //FIXME: fix this fucking shit to return single car instead of pageable it
+        Pageable pageable = PageRequest.of(0,1); // limit 1
+        List<Integer> idCars = repository.findTopProfitableCar(start, end, pageable);
+
+        return repository.findById(idCars.get(0));
     }
 
     @Override
