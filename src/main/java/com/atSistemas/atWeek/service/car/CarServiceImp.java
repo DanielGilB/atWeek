@@ -29,6 +29,9 @@ public class CarServiceImp implements CarService{
         Pageable pageable = PageRequest.of(0,1); // limit 1
         List<Integer> idCars = repository.findTopProfitableCar(start, end, pageable);
 
+        if(idCars.isEmpty())
+            return Optional.empty();
+
         return repository.findById(idCars.get(0));
     }
 

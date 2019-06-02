@@ -27,7 +27,6 @@ public class CarController{
     @Autowired
     private CarMapper mapper;
 
-
     @GetMapping("/profitable/{startDate}/{endDate}")
     public CarDTO profitable(@PathVariable("startDate") String startDate,
                              @PathVariable("endDate") String endDate){
@@ -40,11 +39,13 @@ public class CarController{
 
             Optional<Car> car = service.profitable(start, end);
 
-            return mapper.map(car.get());
+            if(!car.isPresent())
+                throw new NotFoundException("There are no rentals between these dates");
+            else
+                return mapper.map(car.get());
         }
         catch (DateTimeParseException e) { throw e; }
     }
-
 
     @GetMapping("plate/{carPlate}")
     public CarDTO search(@PathVariable("carPlate") String carPlate){
@@ -56,7 +57,6 @@ public class CarController{
 
     @GetMapping("/{id}")
     public CarDTO findOne(@PathVariable("id") Integer id){
-
         return Optional.ofNullable(id)
                 .flatMap(service::findOne)
                 .map(mapper::map)
@@ -68,7 +68,6 @@ public class CarController{
         //TODO: paginar
         return mapper.map(service.findAll());
     }
-
 
     @PostMapping
     public CarDTO create(@RequestBody CarDTO dto) throws ConflictException, UnprocessableException {
@@ -90,13 +89,11 @@ public class CarController{
 
     @DeleteMapping
     public void delete(@RequestBody CarDTO dto){
-
         /*
         Optional.ofNullable(dto)
             .map(mapper::map)
                  .ifPresent(service::delete); // hasta java 9 no hay ifPresentorElse :(
          */
-
         Optional<Car> existsCar = service.findOne(dto.getId());
         if(!existsCar.isPresent()) throw new NotFoundException("This car does not exist");
         else service.delete(mapper.map(dto));

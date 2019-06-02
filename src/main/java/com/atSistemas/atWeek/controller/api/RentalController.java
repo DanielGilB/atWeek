@@ -4,6 +4,7 @@ import com.atSistemas.atWeek.exception.ConflictException;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.rental.RentalMapper;
 import com.atSistemas.atWeek.model.dto.RentalDTO;
+import com.atSistemas.atWeek.model.entity.Rental;
 import com.atSistemas.atWeek.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,6 @@ public class RentalController {
         return mapper.map(service.findAll());
     }
 
-
     @PostMapping
     public RentalDTO create(@RequestBody RentalDTO dto) throws NotFoundException, ConflictException {
         return Optional.ofNullable(dto)
@@ -56,8 +56,8 @@ public class RentalController {
 
     @DeleteMapping
     public void delete(@RequestBody RentalDTO dto){
-        Optional.ofNullable(dto)
-                .map(mapper::map)
-                .ifPresent(service::delete);
+        Optional<Rental> existRental = service.findOne(dto.getId());
+        if(!existRental.isPresent()) throw new NotFoundException("This rental does not exist");
+        else service.delete(mapper.map(dto));
     }
 }

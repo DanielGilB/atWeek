@@ -3,6 +3,8 @@ package com.atSistemas.atWeek.controller.api;
 import com.atSistemas.atWeek.exception.NotFoundException;
 import com.atSistemas.atWeek.mapper.rate.RateMapper;
 import com.atSistemas.atWeek.model.dto.RateDTO;
+import com.atSistemas.atWeek.model.entity.Car;
+import com.atSistemas.atWeek.model.entity.Rate;
 import com.atSistemas.atWeek.service.rate.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +36,6 @@ public class RateController {
         return mapper.map(service.findAll());
     }
 
-
     @PostMapping
     public RateDTO create(@RequestBody RateDTO dto){
         return Optional.ofNullable(dto)
@@ -55,8 +56,8 @@ public class RateController {
 
     @DeleteMapping
     public void delete(@RequestBody RateDTO dto){
-        Optional.ofNullable(dto)
-                .map(mapper::map)
-                .ifPresent(service::delete);
+        Optional<Rate> existsRate = service.findOne(dto.getId());
+        if(!existsRate.isPresent()) throw new NotFoundException("This rate does not exist");
+        else service.delete(mapper.map(dto));
     }
 }

@@ -55,7 +55,6 @@ public class ClientController {
         return mapper.map(service.findAll());
     }
 
-
     @PostMapping
     public ClientDTO create(@RequestBody ClientDTO dto) throws ConflictException, UnprocessableException {
         return Optional.ofNullable(dto)
@@ -76,14 +75,9 @@ public class ClientController {
 
     @DeleteMapping
     public void delete(@RequestBody ClientDTO dto){
-
         Optional<Client> existsClient = service.findOne(dto.getId());
         if(!existsClient.isPresent()) throw new NotFoundException("This client does not exist");
         else service.delete(mapper.map(dto));
-
-        Optional.ofNullable(dto)
-                .map(mapper::map)
-                .ifPresent(service::delete);
     }
 
 }
